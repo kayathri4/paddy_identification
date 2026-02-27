@@ -1,0 +1,29 @@
+project:
+  name: "paddy-segmentation-sar"
+
+
+data:
+  roi_kml: "data/external/shape_file/nigata_rectangle.kml"
+  raw_zip_dir: "data/raw"
+  processed_dir: "data/processed/niigata"
+  stack_output: "data/processed/Niigata_TS_Stack.tif"
+  norm_output: "data/processed/Niigata_TS_Normalized.tif"
+  label_src_dir: 'data/external/validation_data/label_tile_1'
+  label_merged_tif: 'data/processed/labels/nigata_merge.tif'
+  label_binary_tif: 'data/processed/labels/nigata_binary_label.tif'
+  label_geojson: 'data/processed/labels/nigata_binary.geojson'
+
+
+training:
+  tile_size: 512
+  stride: 256
+  batch_size: 4
+  epochs: 50
+  learning_rate: 0.0005
+  architecture: "unet"
+  encoder: "resnet34"
+  encoder_weights: null # Use null for None in Python
+
+paths:
+  output_model_dir: 'models'
+

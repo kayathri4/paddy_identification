@@ -1,0 +1,5 @@
+data
+.dvc
+.dvcignore
+dvc.lock
+venv
