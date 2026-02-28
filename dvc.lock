@@ -1,0 +1,31 @@
+schema: '2.0'
+stages:
+  prepare_labels:
+    cmd: python src/labeling.py
+    deps:
+    - path: config.yaml
+      hash: md5
+      md5: 3c0f76fded03ce211f63bbcf95210de6
+      size: 805
+    - path: data/external/validation_data/label_tile_1
+      hash: md5
+      md5: 8bcebf9762e1f955e8b077b49bd59cbd.dir
+      size: 18859580
+      nfiles: 2
+    - path: src/labeling.py
+      hash: md5
+      md5: bc7682db131930e39c6b8f0d2f134da2
+      size: 2934
+    outs:
+    - path: data/processed/labels/nigata_binary.geojson
+      hash: md5
+      md5: 6fc5771757df1a2fba49cb95378e533c
+      size: 86751418
+    - path: data/processed/labels/nigata_binary_label.tif
+      hash: md5
+      md5: 605fc630beeb767b626166f155d891b2
+      size: 288072378
+    - path: data/processed/labels/nigata_merge.tif
+      hash: md5
+      md5: b01431c4af44c1148e2e5808fc00bc29
+      size: 288072366

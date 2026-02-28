@@ -215,11 +215,11 @@ tifffile==2026.2.24
 timm==1.0.25
 tinycss2==1.4.0
 tokenizers==0.22.2
-torch==2.10.0
-torchgeo==0.8.1
+torch==2.5.1
+torchgeo==0.6.2
 torchinfo==1.8.0
 torchmetrics==1.8.2
-torchvision==0.25.0
+torchvision==0.20.1
 tornado==6.5.4
 tqdm==4.67.3
 traitlets==5.14.3
