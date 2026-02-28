@@ -21,9 +21,9 @@ from pathlib import Path
 from pathlib import Path
 
 
-test_image = "G:\\data\\test\\image\\tile_000002.tif"
+test_image = "G:\\data\\test\\image\\tile_000009.tif"
 model_path = "G:\\data\\models\\best_model.pth"
-masks_path = "G:\\data\\models\\test1.tif"
+masks_path = "G:\\data\\models\\test_9.tif"
 
 
 

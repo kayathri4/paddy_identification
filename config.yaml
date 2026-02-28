@@ -18,7 +18,7 @@ training:
   tile_size: 512
   stride: 256
   batch_size: 4
-  epochs: 10
+  epochs: 20
   learning_rate: 0.0005
   architecture: "unet"
   encoder: "resnet34"
