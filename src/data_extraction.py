@@ -6,8 +6,8 @@ import yaml
 from pathlib import Path
 import os
 import glob
-# from pyroSAR.snap import geocode
-# from pyroSAR import identify
+from pyroSAR.snap import geocode
+from pyroSAR import identify
 
 def crop_sar_to_roi():
 
@@ -65,79 +65,79 @@ def crop_sar_to_roi():
 
 
 
-# def process_s1_batch( gpt_path=None):
-#     """
-#     Processes all Sentinel-1 scenes in a folder using pyroSAR and SNAP.
-#     """
-#
-#     # 0.Load configuration
-#     ROOT_DIR = Path(__file__).resolve().parent.parent
-#     CONFIG_PATH = ROOT_DIR / "config.yaml"
-#     with open(CONFIG_PATH, 'r') as f:
-#         config = yaml.safe_load(f)
-#         print(config)
-#
-#     output_folder = os.path.join(ROOT_DIR, config['data']['processed_dir'])
-#     input_folder = os.path.join(ROOT_DIR, config['data']['raw_zip_dir'])
-#     kml_path = os.path.join(ROOT_DIR, config['data']['roi_kml'])
-#     # 1. Environment Setup
-#
-#     if gpt_path:
-#         os.environ['SNAP_GPT_EXECUTABLE'] = gpt_path
-#
-#     if not os.path.exists(f"{output_folder}/preprocessed"):
-#         os.makedirs(f"{output_folder}/preprocessed")
-#
-#     # 2. Identify all zip and SAFE files
-#     input_bundles = glob.glob(os.path.join(input_folder, "S1*.zip")) + \
-#                     glob.glob(os.path.join(input_folder, "S1*.SAFE"))
-#
-#     print(f"Total scenes found: {len(input_bundles)}")
-#
-#     # 3. Execution Loop
-#     for bundle in input_bundles:
-#         try:
-#             scene = identify(bundle)
-#             scene_name = scene.outname_base()
-#
-#             # Check if processing is already done (Optional but recommended)
-#             # This looks for the directory or file starting with the scene name
-#             if any(scene_name in f for f in os.listdir(output_folder)):
-#                 print(f"Skipping {scene_name} - Output already exists.")
-#                 continue
-#
-#             print(f"\n>>> Processing: {scene_name}")
-#             geocode(
-#                 infile=bundle,
-#                 outdir=output_folder,
-#                 speckleFilter='Refined Lee',
-#                 t_srs=4326,
-#                 spacing=10,
-#                 scaling='db',
-#                 shapefile=kml_path,
-#                 removeS1BorderNoise=True,
-#                 removeS1BorderNoiseMethod='pyroSAR',
-#                 removeS1ThermalNoise=True,
-#                 demResamplingMethod='BILINEAR_INTERPOLATION',
-#                 demName='SRTM 1Sec HGT',
-#                 cleanup=True  # Set to True to save disk space after each run
-#             )
-#             print(f"Done: {scene_name}")
-#
-#         except Exception as e:
-#             print(f"Error processing {bundle}: {e}")
-#
+def process_s1_batch( gpt_path=None):
+    """
+    Processes all Sentinel-1 scenes in a folder using pyroSAR and SNAP.
+    """
+
+    # 0.Load configuration
+    ROOT_DIR = Path(__file__).resolve().parent.parent
+    CONFIG_PATH = ROOT_DIR / "config.yaml"
+    with open(CONFIG_PATH, 'r') as f:
+        config = yaml.safe_load(f)
+        print(config)
+
+    output_folder = os.path.join(ROOT_DIR, config['data']['processed_dir'])
+    input_folder = os.path.join(ROOT_DIR, config['data']['raw_zip_dir'])
+    kml_path = os.path.join(ROOT_DIR, config['data']['roi_kml'])
+    # 1. Environment Setup
+
+    if gpt_path:
+        os.environ['SNAP_GPT_EXECUTABLE'] = gpt_path
+
+    if not os.path.exists(f"{output_folder}/preprocessed"):
+        os.makedirs(f"{output_folder}/preprocessed")
+
+    # 2. Identify all zip and SAFE files
+    input_bundles = glob.glob(os.path.join(input_folder, "S1*.zip")) + \
+                    glob.glob(os.path.join(input_folder, "S1*.SAFE"))
+
+    print(f"Total scenes found: {len(input_bundles)}")
+
+    # 3. Execution Loop
+    for bundle in input_bundles:
+        try:
+            scene = identify(bundle)
+            scene_name = scene.outname_base()
+
+            # Check if processing is already done (Optional but recommended)
+            # This looks for the directory or file starting with the scene name
+            if any(scene_name in f for f in os.listdir(output_folder)):
+                print(f"Skipping {scene_name} - Output already exists.")
+                continue
+
+            print(f"\n>>> Processing: {scene_name}")
+            geocode(
+                infile=bundle,
+                outdir=output_folder,
+                speckleFilter='Refined Lee',
+                t_srs=4326,
+                spacing=10,
+                scaling='db',
+                shapefile=kml_path,
+                removeS1BorderNoise=True,
+                removeS1BorderNoiseMethod='pyroSAR',
+                removeS1ThermalNoise=True,
+                demResamplingMethod='BILINEAR_INTERPOLATION',
+                demName='SRTM 1Sec HGT',
+                cleanup=True  # Set to True to save disk space after each run
+            )
+            print(f"Done: {scene_name}")
+
+        except Exception as e:
+            print(f"Error processing {bundle}: {e}")
+
 
 
 
 if __name__ == "__main__":
     crop_sar_to_roi()
 
-    # Fix PROJ_LIB for GDAL
-    # proj_lib = r"D:\cv_project\sar_prj\venv\Lib\site-packages\osgeo\data\proj"
-    # if os.path.exists(proj_lib):
-    #     os.environ['PROJ_LIB'] = proj_lib
+    Fix PROJ_LIB for GDAL
+    proj_lib = r"D:\cv_project\sar_prj\venv\Lib\site-packages\osgeo\data\proj"
+    if os.path.exists(proj_lib):
+        os.environ['PROJ_LIB'] = proj_lib
 
-    # definin path of SNAP tool
-    # GPT = r"C:\Program Files\esa-snap\bin\gpt.exe"
-    # process_s1_batch(gpt_path=GPT)
+    definin path of SNAP tool
+    GPT = r"C:\Program Files\esa-snap\bin\gpt.exe"
+    process_s1_batch(gpt_path=GPT)

@@ -1,5 +1,4 @@
 data
-.dvc
+!.dvc
 .dvcignore
-dvc.lock
 venv

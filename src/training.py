@@ -45,15 +45,15 @@ def run_training_pipeline():
     print(f"Detected {actual_channels} channels in input stack.")
 
     # 3. Export Tiff Tiles (Patching)
-    # print("Generating training tiles...")
-    # tiles = geoai.export_geotiff_tiles(
-    #     in_raster=str(train_raster),
-    #     out_folder=str(out_tile_folder),
-    #     in_class_data=str(label_geojson),
-    #     tile_size=config['training']['tile_size'],
-    #     stride=config['training']['stride'],
-    #     buffer_radius=0,
-    # )
+    print("Generating training tiles...")
+    tiles = geoai.export_geotiff_tiles(
+        in_raster=str(train_raster),
+        out_folder=str(out_tile_folder),
+        in_class_data=str(label_geojson),
+        tile_size=config['training']['tile_size'],
+        stride=config['training']['stride'],
+        buffer_radius=0,
+    )
 
     # # 4. Train Segmentation Model
     print(f"Starting {config['training']['architecture']} training...")

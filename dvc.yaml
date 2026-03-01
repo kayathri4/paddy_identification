@@ -1,24 +1,24 @@
 stages:
-  # crop_sar:
-  #   cmd: python src/data_extraction.py
-  #   deps:
-  #     - src/data_extraction.py
-  #     - config.yaml
-  #     - data/raw          # Path from your config
-  #     - data/external/shape_file/nigata_rectangle.kml # Path containing your KML
-  #   outs:
-  #     - data/processed/niigata          # Path where cropped TIFs are saved
+  crop_sar:
+    cmd: python src/data_extraction.py
+    deps:
+      - src/data_extraction.py
+      - config.yaml
+      - data/raw          # Path from your config
+      - data/external/shape_file/nigata_rectangle.kml # Path containing your KML
+    outs:
+      - data/processed/niigata          # Path where cropped TIFs are saved
 
-  # preprocessing:
-  #   cmd: python src/preprocessing.py
-  #   deps:
-  #     - src/preprocessing.py
-  #     - config.yaml
-  #     - data/processed/niigata
-  #   outs:
-  #     - data/processed/Niigata_TS_Stack.tif
-  #     - data/processed/Niigata_TS_Stack.stats.log
-  #     - data/processed/Niigata_TS_Normalized.tif
+  preprocessing:
+    cmd: python src/preprocessing.py
+    deps:
+      - src/preprocessing.py
+      - config.yaml
+      - data/processed/niigata
+    outs:
+      - data/processed/Niigata_TS_Stack.tif
+      - data/processed/Niigata_TS_Stack.stats.log
+      - data/processed/Niigata_TS_Normalized.tif
 
   prepare_labels:
     cmd: python src/labeling.py
