@@ -19,8 +19,9 @@ import geoai
 import rasterio
 from pathlib import Path
 from pathlib import Path
+import matplotlib.pyplot as plt
 
-hard_path = Path("G:/data")
+
 def run_training_pipeline():
     # 1. Setup Paths
     ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -32,8 +33,8 @@ def run_training_pipeline():
     # Resolve paths from config
     train_raster = ROOT_DIR / config['data']['norm_output'].strip()
     label_geojson = ROOT_DIR / config['data']['label_geojson'].strip()
-    out_tile_folder = hard_path / "data" / "paddy_instance"
-    model_output_dir = hard_path / config['paths']['output_model_dir'].strip()
+    out_tile_folder = ROOT_DIR / "data" / "paddy_instance"
+    model_output_dir = ROOT_DIR / config['paths']['output_model_dir'].strip()
 
     # Create directories
     out_tile_folder.mkdir(parents=True, exist_ok=True)
@@ -75,5 +76,26 @@ def run_training_pipeline():
     )
 
 
+def save_learning_curves(history, output_path):
+    plt.figure(figsize=(10, 5))
+    
+    # Plot Loss
+    plt.subplot(1, 2, 1)
+    plt.plot(history['train_loss'], label='Train Loss')
+    plt.plot(history['val_loss'], label='Val Loss')
+    plt.title('Loss Curve')
+    plt.legend()
+
+    # Plot IoU
+    plt.subplot(1, 2, 2)
+    plt.plot(history['train_iou'], label='Train IoU')
+    plt.plot(history['val_iou'], label='Val IoU')
+    plt.title('IoU Curve')
+    plt.legend()
+
+    plt.savefig(output_path)
+    plt.close()
+
 if __name__ == "__main__":
     run_training_pipeline()
+    save_learning_curves(history="models\training_history.pth", output_path="plots/learning_curves.png")

@@ -1,0 +1,10 @@
+Training completed on: 2026-03-01 00:12:11
+Architecture: unet
+Encoder: resnet34
+Total epochs: 50
+Best validation IoU: 0.8670
+Final validation IoU: 0.8670
+Final validation F1: 0.9265
+Final validation Precision: 0.9300
+Final validation Recall: 0.9241
+Final validation loss: 0.1426

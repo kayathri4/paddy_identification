@@ -40,3 +40,26 @@ stages:
       - data/processed/labels/nigata_binary.geojson
     outs:
       - models
+
+  evaluate:
+    cmd: python src/eval.py
+    deps:
+      - src/eval.py
+      - models/best_model.pth
+      - data/test_data/
+    metrics:
+      - plots/test_report.txt: 
+          cache: false
+    plots:
+      - plots/test_confusion_matrix.png:
+          cache: false
+
+  test:
+    cmd: python src/test.py
+    deps:
+      - src/test.py
+      - models/best_model.pth
+    params:
+      - inference
+    outs:
+      - models

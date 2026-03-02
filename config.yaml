@@ -24,6 +24,11 @@ training:
   encoder: "resnet34"
   encoder_weights: null # Use null for None in Python
 
+inference:
+  test_image_path: "G:/data/test/image/tile_000009.tif"
+  model_path: "G:/data/models/best_model.pth"
+  output_mask_path: "G:/data/models/test_9.tif"
+
 paths:
   output_model_dir: 'models'
 
